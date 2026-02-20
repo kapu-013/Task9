@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sai Chinese | Kadakk Street Menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* STEP 1: Smooth Scrolling ENABLE (GLOBAL) */
+html{
+  scroll-behavior: smooth;
+}
+
+/* ===== RED + CREAM DNA WITH SHOP BACKGROUND ===== */
+body{
+  margin:0;
+  padding:0;
+  font-family:'Poppins',sans-serif;
+  /* SHOP PHOTO IN BACKGROUND */
+  background: 
+    linear-gradient(rgba(255,250,240,0.75), rgba(247,238,220,0.75)),
+    url("shop.jpeg") center/cover fixed no-repeat;
+  color:#4a100a;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* STEP 2: Mobile Touch Scroll Smoothness */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* RESPONSIVE PADDING FOR BODY */
+@media (min-width: 600px) {
+  body { padding: 50px 0; }
+}
+
+/* STEP-2: TRANSPARENT MENU CARD WITH GLASS EFFECT */
+.menu-poster{
+  width: 100%;
+  max-width:550px; 
+  margin: auto;
+  background: linear-gradient(
+    135deg,
+    rgba(255,248,235,0.75),
+    rgba(204, 47, 47, 0.65),
+    rgba(21, 198, 221, 0.7)
+  );
+  backdrop-filter: blur(4px); 
+  -webkit-backdrop-filter: blur(4px); /* Safari support */
+  min-height:100vh;
+  border-left: 10px solid #b3261e; 
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  position:relative;
+  /* Changed to visible so photos aren't cut during download */
+  overflow: visible; 
+}
+
+.menu-poster::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  box-shadow:
+    inset 0 0 80px rgba(0,0,0,0.18),
+    inset 0 0 15px rgba(179,38,30,0.25);
+  pointer-events:none;
+  z-index: 6;
+}
+
+/* HEADER SHOP-BOARD STYLE */
+.header{
+  text-align:left;
+  padding:40px 25px;
+  background: linear-gradient(135deg,#8b1a12,#5a0b07); /* Dhaba Style Dark Red */
+  border-bottom: 4px solid #ffeb3b; /* Header Separation */
+  box-shadow: inset 0 -6px 0 rgba(0,0,0,0.2);
+  color: #fff;
+  position: relative;
+  z-index: 7;
+}
+
+/* TOP SMALL MARATHI LINE CSS */
+.header-top-line{
+  display:flex;
+  justify-content:space-between;
+  font-size:0.75rem;
+  font-weight:600;
+  margin-bottom:8px;
+  margin-top:-20px;
+  opacity:0.9;
+}
+.header-top-line span{
+  white-space:nowrap;
+}
+
+/* POWERFUL HEADER H1 */
+.header h1{
+  margin:0;
+  font-size: clamp(2.6rem, 9vw, 3.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow:
+    3px 3px 0 #000,
+    6px 6px 0 rgba(0,0,0,0.5);
+}
+
+/* STICKER STYLE TRUST BADGE */
+.trust-badge{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffeb3b;
+  color: #000;
+  padding: 6px 14px;
+  font-weight: 900;
+  font-size: 0.75rem;
+  margin-top: 18px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(-2deg);
+  width: fit-content;
+}
+
+/* VEG LOGO */
+.veg-icon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #2e7d32;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.veg-icon::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #2e7d32;
+  border-radius: 50%;
+}
+
+/* CLASSY MARATHI TAGLINE */
+.header p{
+  margin-top: 14px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.95;
+  text-transform: none;
+  letter-spacing: 0.3px;
+  color: #ffecec;
+}
+
+/* MENU BODY */
+.menu-body{
+  padding:30px 25px;
+  position: relative;
+  z-index: 5;
+}
+
+/* SECTION TITLES BOLD */
+.section-title{
+  display:block;
+  border-bottom: 3px solid #b3261e;
+  color:#b3261e;
+  padding:5px 0;
+  font-size:1.4rem;
+  font-weight:800;
+  margin-bottom:20px;
+  text-shadow: 1px 1px 0 #000;
+  letter-spacing: 1px; 
+}
+
+/* TAP-WORTHY ITEMS */
+.item{
+  display:flex;
+  flex-direction: column; 
+  margin-bottom:20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.item:hover{
+  transform: translateX(6px);
+  box-shadow: -6px 0 0 #b3261e;
+  background: rgba(179, 38, 30, 0.05);
+}
+
+.item-top {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+.item-name{
+  font-weight:700;
+  color: #222;
+  font-size: 1.15rem;
+}
+
+.item-desc {
+  font-size: 0.8rem;
+  color: #7a1f14;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.dots{
+  flex-grow:1;
+  border-bottom:2px dotted #cfa89f;
+  margin:0 8px;
+}
+
+.price{
+  font-weight:800;
+  color:#b3261e;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+/* TODAY'S SPECIAL GLOW */
+.special-highlight {
+  position: relative;
+  border: 2px solid #ffeb3b;
+  background: rgba(255, 253, 240, 0.7) !important;
+  animation: border-glow 2s infinite;
+}
+
+@keyframes border-glow {
+  0% { box-shadow: 0 0 5px rgba(255, 235, 59, 0.5); }
+  50% { box-shadow: 0 0 15px rgba(255, 235, 59, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(255, 235, 59, 0.5); }
+}
+
+/* STICKER STYLE TAGS */
+.tag{
+  font-size:0.65rem;
+  font-weight:800;
+  padding: 2px 6px;
+  margin-left: 8px;
+  vertical-align: middle;
+  border-radius: 3px;
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+.tag-hot { background: #ffeb3b; color: #000; border: 1px solid #000; }
+.tag-best { background: #b3261e; color: #fff; box-shadow: 2px 2px 0px #000; }
+
+/* INFO STRIP */
+.footer-strip{
+  padding:30px 25px;
+  background:#222;
+  color:#fff;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-info {
+  margin-bottom: 15px;
+}
+
+.footer-info strong {
+  color: #ffeb3b;
+  font-size: 0.8rem;
+  display: block;
+  text-transform: uppercase;
+}
+
+.footer-info span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* KAAM 2: DISH PHOTOS (ALL SIZE UNIFORM) */
+.dish-photo{
+  position:absolute;
+  width:180px;
+  height:180px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:50%;
+  border:5px solid #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  z-index:15;
+  overflow:hidden;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(-5deg); }
+  50% { transform: translateY(-10px) rotate(-2deg); }
+  100% { transform: translateY(0px) rotate(-5deg); }
+}
+
+@keyframes float-alt {
+  0% { transform: translateY(0px) rotate(10deg); }
+  50% { transform: translateY(-10px) rotate(13deg); }
+  100% { transform: translateY(0px) rotate(10deg); }
+}
+
+/* POSITIONING FOR PHOTOS */
+.photo-1{ top:180px; left:-200px; animation: float 4s infinite ease-in-out; }
+.photo-2{ bottom:400px; left:-200px; animation: float 4.5s infinite ease-in-out; }
+.photo-3{ top:300px; right:-200px; animation: float-alt 4s infinite ease-in-out; }
+.photo-4{ bottom:150px; right:-200px; animation: float-alt 5s infinite ease-in-out; }
+.photo-5{ top:650px; left:-200px; animation: float 5.5s infinite ease-in-out; }
+.photo-6{ top:10px; right:-180px; width:180px; height:180px; animation: float 5.5s infinite ease-in-out;} 
+.photo-7{ bottom:10px; left:-220px; width:180px; height:180px; animation: float 5.5s infinite ease-in-out; } 
+
+@media (max-width:600px){
+  body{ display:block; }
+}
+
+@media (max-width: 850px) {
+  .dish-photo { 
+    width: 80px; height: 80px; position: fixed;
+  }
+  .photo-1 { left: 10px; top: 10px; animation: none; opacity: 0.8; }
+  .photo-2 { left: 10px; bottom: 10px; animation: none; opacity: 0.8; }
+  .photo-3 { right: 10px; top: 10px; animation: none; opacity: 0.8; }
+  .photo-4, .photo-5, .photo-6, .photo-7 { display: none; }
+  
+  @media (max-width: 480px) {
+    .dish-photo { display: none; }
+    .menu-poster { border-left: 5px solid #b3261e; }
+  }
+}
+
+/* DOWNLOAD BUTTON CSS */
+.download-btn{
+  background:#ffeb3b;
+  color:#000;
+  font-weight:900;
+  border:none;
+  padding:14px 28px;
+  font-size:1rem;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:4px 4px 0 #000;
+  transition:all 0.2s ease;
+  margin: 20px 0;
+}
+
+.download-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:6px 6px 0 #000;
+}
+</style>
+</head>
+
+<body>
+
+<div id="capture-area" style="padding: 100px 300px; display: inline-block;">
+  <div class="menu-poster">
+
+    <img src="noodles.jpg" class="dish-photo photo-1" alt="Noodles">
+    <img src="manchurian.jpg" class="dish-photo photo-2" alt="Manchurian">
+    <img src="rice.jpg" class="dish-photo photo-3" alt="Fried Rice">
+    <img src="manchav.jpg" class="dish-photo photo-4" alt="Soup">
+    <img src="pavbhaji.jpg" class="dish-photo photo-5" alt="Pav Bhaji">
+    <img src="bhel.jpg" class="dish-photo photo-6" alt="Chinese Bhel">
+    <img src="soyabean.jpg" class="dish-photo photo-7" alt="Special Dish">
+
+    <div class="header">
+      <div class="header-top-line">
+        <span class="left-text">॥ साई कृपा ॥</span>
+        <span class="right-text">॥ श्री शिवाय नमस्तुभ्यं ॥</span>
+      </div>
+
+      <h1>साई<br>चायनीज</h1>
+      <div class="trust-badge">
+        Since 2011 • 100% Veg 
+        <div class="veg-icon"></div>
+      </div>
+      <p>रस्ता चुकला तरी चालेल, साई चायनीज मधली चायनीज आणि पावभाजी नको चुकायला!</p>
+    </div>
+
+    <div class="menu-body">
+      <div class="section">
+        <div class="section-title">🔥 SPECIALS | स्पेशल</div>
+        <div class="item special-highlight">
+          <div class="item-top">
+            <span class="item-name">Sai Chinese Special</span>
+            <span class="tag tag-best">HOUSE FAV ⭐</span>
+            <span class="dots"></span>
+            <span class="price">₹70</span>
+          </div>
+          <div class="item-desc">साई चायनीज स्पेशल (Signature Taste)</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🥘 PAV BHAJI | पावभाजी</div>
+        <div class="item">
+          <div class="item-top"><span class="item-name">Pav Bhaji</span><span class="dots"></span><span class="price">₹60</span></div>
+          <div class="item-desc">पावभाजी (Traditional Taste)</div>
+        </div>
+        <div class="item">
+          <div class="item-top">
+            <span class="item-name">Butter Pav Bhaji</span>
+            <span class="tag tag-best">RICH ⭐</span>
+            <span class="dots"></span>
+            <span class="price">₹70</span>
+          </div>
+          <div class="item-desc">बटर पावभाजी (Loaded with Amul Butter)</div>
+        </div>
+        <div class="item">
+          <div class="item-top"><span class="item-name">Masala Pav (2 Pcs)</span><span class="dots"></span><span class="price">₹15</span></div>
+          <div class="item-desc">मसाला पाव (Spicy & Tasty)</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🍜 NOODLES | नूडल्स</div>
+        <div class="item">
+          <div class="item-top"><span class="item-name">Veg Noodles</span><span class="dots"></span><span class="price">₹70</span></div>
+          <div class="item-desc">व्हेज नूडल्स (Classic Street Style)</div>
+        </div>
+        <div class="item">
+          <div class="item-top">
+            <span class="item-name">Hakka Noodles</span>
+            <span class="tag tag-best">STAR HERO ⭐</span>
+            <span class="dots"></span>
+            <span class="price">₹70</span>
+          </div>
+          <div class="item-desc">हक्का नूडल्स (Tossed with Butter)</div>
+        </div>
+        <div class="item">
+          <div class="item-top">
+            <span class="item-name">Schezwan Noodles</span>
+            <span class="tag tag-hot">TEEKHA 🔥</span>
+            <span class="dots"></span>
+            <span class="price">₹70</span>
+          </div>
+          <div class="item-desc">शेजवान नूडल्स (Full Spicy)</div>
+        </div>
+        <div class="item">
+          <div class="item-top"><span class="item-name">Manchurian Noodles</span><span class="dots"></span><span class="price">₹70</span></div>
+          <div class="item-desc">मंच्युरियन नूडल्स (Noodles + Manchurian)</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🍚 RICE | राईस</div>
+        <div class="item">
+          <div class="item-top"><span class="item-name">Veg Fried Rice</span><span class="dots"></span><span class="price">₹70</span></div>
+          <div class="item-desc">व्हेज फ्राईड राइस (Desi Chinese)</div>
+        </div>
+        <div class="item">
+          <div class="item-top"><span class="item-name">Manchurian Rice</span><span class="dots"></span><span class="price">₹70</span></div>
+          <div class="item-desc">मंच्युरियन राइस (Loaded with Balls)</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding-bottom: 20px;">
+      <button id="downloadMenu" class="download-btn">📥 Download Full Menu (Desktop Style)</button>
+    </div>
+
+    <div class="footer-strip">
+      <div class="footer-info"><strong>📍 ADDRESS</strong><span>Karvand Naka, Shirpur</span></div>
+      <div class="footer-info"><strong>📸 INSTAGRAM</strong><span>sai_chainese_shirpur</span></div>
+      <div class="footer-info"><strong>⏰ TIME</strong><span>3:30 PM – 10:00 PM</span></div>
+      <div class="footer-info"><strong>📞 PHONE PE</strong><span>+91 8888074811</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+document.getElementById("downloadMenu").addEventListener("click", function () {
+  const captureArea = document.getElementById("capture-area");
+  const btn = this;
+  
+  // Hide button during capture
+  btn.style.opacity = "0";
+
+  html2canvas(captureArea, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: null,
+    // Force desktop view for the screenshot
+    windowWidth: 1200 
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "Sai_Chinese_Menu_Full.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    btn.style.opacity = "1";
+  });
+});
+</script>
+
+</body>
+</html>
